@@ -1,0 +1,25 @@
+{
+  "initializationOptions": {
+    "cacheDirectory": "/tmp/cquery"
+  },
+  "pyls": {
+    "configurationSources": ["flake8"],
+    "plugins": {
+      "flake8": {
+        "enabled": true
+      },
+      "mypy": {
+          "enabled": true
+      },
+      "pycodestyle": {
+        "enabled": true
+      },
+      "pyflakes": {
+        "enabled": false
+      },
+      "pylint": {
+          "enabled": false
+      }
+    }
+  }
+}
