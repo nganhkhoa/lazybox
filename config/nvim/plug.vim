@@ -4,7 +4,7 @@ Plug 'junegunn/vim-plug'
 " Interface {{{
 " Plug 'vim-airline/vim-airline'                  " status bar
 " Plug 'vim-airline/vim-airline-themes'           " status bar theme
-Plug 'itchyny/lightline.vim'                    " line/tag bar
+" Plug 'itchyny/lightline.vim'                    " line/tag bar
 Plug 'sainnhe/artify.vim'                       " change text display
 Plug 'ryanoasis/vim-devicons'
 " Plug 'luochen1990/rainbow'                      " bracket highlight
@@ -82,7 +82,7 @@ Plug 'tpope/vim-sleuth'                         " auto detect indentation
 " Plug 'junegunn/vim-peekaboo'                    " :registers on copy, paste
 Plug 'ahonn/vim-fileheader'                     " AddFileHeader, UpdateFileHeader
 Plug 'wakatime/vim-wakatime'                    " waka time tracker
-Plug 'skywind3000/vim-keysound'                 " typing sound
+" Plug 'skywind3000/vim-keysound'                 " typing sound
 " Plug 'rlue/vim-barbaric'                        " auto switch input methods
 Plug 'segeljakt/vim-silicon'
 " }}}

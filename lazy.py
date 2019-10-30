@@ -10,6 +10,7 @@ import docker
 
 from os.path import expanduser
 from winreg import OpenKey, CloseKey
+from pprint import pprint
 
 IS_DEV = True
 DEV_IMAGE_TAG = 'luibo/lazybox:v0.2'
@@ -21,7 +22,7 @@ DESKTOP = "{}\Desktop".format(HOME)
 
 # lazy data
 LAZY = "{}\lazy".format(HOME)
-LAZY_CONFIG = "{}\config".format(LAZY)
+LAZY_HOME = "{}\home".format(LAZY)
 LAZY_BIN = "{}\\bin".format(LAZY)
 
 try:
@@ -70,7 +71,7 @@ for container in client.containers.list():
 
 if container_name is None:
 	# run a container
-	print('No container found, create one')
+	print('No container found, create one, with config below')
 	container_name = 'lazybox' if IS_DEV else img_tag.replace(':', '_')
 	config = {
 		'image': img_tag,
@@ -79,7 +80,7 @@ if container_name is None:
 		'volumes': {
 			HOME: {'bind': '/root/workspace', 'mode': 'rw'},
 			DESKTOP: {'bind': '/root/desktop', 'mode': 'rw'},
-			LAZY: {'bind': '/root', 'mode': 'rw'},
+			# LAZY_HOME: {'bind': '/root', 'mode': 'rw'},		# doesn't work
 			# TODO: auto loop disk and create corresponding volume drive
 			'D://': {'bind': '/root/drive/d', 'mode': 'rw'},
 			'C://': {'bind': '/root/drive/c', 'mode': 'rw'}
@@ -92,7 +93,7 @@ if container_name is None:
 		'tty': True,
 		'detach': True		    	# run in detach mode
 	}
-	print('Config:', config)
+	pprint(config, indent=4)
 	client.containers.run(**config)
 print('container:', container_name)
 
