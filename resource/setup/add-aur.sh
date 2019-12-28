@@ -5,6 +5,10 @@ set -o pipefail -e
 
 [[ -z "$1" ]] && echo "You must specify a user name" && exit 1
 AUR_USER=$1
+if [ $AUR_USER == 'root' ]; then
+    # default user as docker
+    AUR_USER='docker'
+fi
 
 # install yay deps
 pacman -Syyu git sudo pacman go --needed --noprogressbar --noconfirm

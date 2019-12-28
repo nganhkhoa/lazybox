@@ -1,6 +1,6 @@
 " @Author: Nguyễn Anh Khoa <ng.akhoa@yahoo.com.vn>
 " @Date: 2018-12-31 17:48:56
-" @Last Modified by: Khoa Nguyen Anh <ng.akhoa98@gmail.com>
+" @Last Modified by: nganhkhoa <mail.nganhkhoa@gmail.com>
 " +Last Modified time: 2019-05-09 02:14:43
 
 " avaiable value:
@@ -10,6 +10,8 @@
 let g:luibo_lint_format = 'deoplete'
 
 source $HOME/.config/nvim/plug.vim
+
+source $HOME/.config/nvim/fvim.vim
 
 source $HOME/.config/nvim/deoplete.vim
 source $HOME/.config/nvim/coc.vim
@@ -36,7 +38,7 @@ set autoindent
 set number relativenumber
 set signcolumn=yes
 
-set showbreak=↪\ "
+set showbreak=\\"
 set list listchars=tab:‣\ ,trail:·,precedes:«,extends:»,eol:¬
 
 " when install plugins, use /bin/sh
@@ -215,10 +217,10 @@ map <silent>sr <Plug>(operator-surround-replace)
 
 " CamelCaseMotion {{{
 " call camelcasemotion#CreateMotionMappings('<leader>')
-" map <silent> w <Plug>CamelCaseMotion_w
-" map <silent> b <Plug>CamelCaseMotion_b
-" map <silent> e <Plug>CamelCaseMotion_e
-" map <silent> ge <Plug>CamelCaseMotion_ge
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
 " sunmap w
 " sunmap b
 " sunmap e
