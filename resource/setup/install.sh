@@ -49,6 +49,7 @@ mkdir -p $WORKSPACE/drive      # mapping to disk drives
 mkdir -p $WORKSPACE/tools/yafu
 wget -O $WORKSPACE/tools/yafu/yafu.zip https://nchc.dl.sourceforge.net/project/yafu/1.34/yafu-1.34.zip
 unzip $WORKSPACE/tools/yafu/yafu.zip -d $WORKSPACE/tools/yafu
+chmod +x $WORKSPACE/tools/yafu/yafu
 cp $WORKSPACE/tools/yafu/yafu $WORKSPACE/bin
 # sage -python2 -m pip install pwntools PyCryptodome z3-solver
 sage -python -m pip install pwntools PyCryptodome z3-solver # sage is now python3
@@ -73,8 +74,10 @@ chmod +x $WORKSPACE/tools/apktool/apktool.jar # ???
 cp $WORKSPACE/tools/apktool/* $WORKSPACE/bin
 # jadx
 git clone https://github.com/skylot/jadx $WORKSPACE/tools/jadx
-$WORKSPACE/tools/jadx/gradlew dist
-cp $WORKSPACE/tools/jadx/build/jadx/bin/jadx $WORKSPACE/bin
+$WORKSPACE/tools/jadx/gradlew -p $WORKSPACE/tools/jadx dist
+# seems like it always fail at first time
+$WORKSPACE/tools/jadx/gradlew -p $WORKSPACE/tools/jadx dist
+# binary will be added to path in .bashrc
 
 # getac
 git clone https://github.com/fukamachi/getac $WORKSPACE/tools/getac

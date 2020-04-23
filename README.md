@@ -95,7 +95,7 @@ I exports common ports:
 Change version tag and `IS_DEV`, `DEV_IMAGE_TAG` to use if you are using a dev image on your own.
 
 ```
-docker build --tag luibo/lazybox:v0.4 --build-arg user=luibo .
+docker build --tag luibo/lazybox:v0.5 --build-arg user=luibo .
 ```
 
 ## This container provides
