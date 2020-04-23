@@ -1,7 +1,7 @@
-" @Author: Nguyễn Anh Khoa <ng.akhoa@yahoo.com.vn>
+" @Author: Nguyễn Anh Khoa <mail.nganhkhoa@gmail.com>
 " @Date: 2018-12-31 17:48:56
 " @Last Modified by: nganhkhoa <mail.nganhkhoa@gmail.com>
-" +Last Modified time: 2019-05-09 02:14:43
+" +Last Modified time: 2020-04-23
 
 " avaiable value:
 "   deoplete
@@ -9,14 +9,14 @@
 "   coc
 let g:luibo_lint_format = 'deoplete'
 
-source $HOME/.config/nvim/plug.vim
+source $HOME/AppData/Local/nvim/plug.vim
 
-source $HOME/.config/nvim/fvim.vim
+source $HOME/AppData/Local/nvim/deoplete.vim
+source $HOME/AppData/Local/nvim/coc.vim
+source $HOME/AppData/Local/nvim/ale.vim
+source $HOME/AppData/Local/nvim/commands.vim
 
-source $HOME/.config/nvim/deoplete.vim
-source $HOME/.config/nvim/coc.vim
-source $HOME/.config/nvim/ale.vim
-source $HOME/.config/nvim/commands.vim
+source $HOME/AppData/Local/nvim/fvim.vim
 
 " Common {{{
 set nocompatible        " use real VIM
@@ -38,17 +38,21 @@ set autoindent
 set number relativenumber
 set signcolumn=yes
 
-set showbreak=\\"
+" set showbreak=↪\ "
+set showbreak=\\ "
 set list listchars=tab:‣\ ,trail:·,precedes:«,extends:»,eol:¬
 
 " when install plugins, use /bin/sh
+if has('unix')
 set shell=/bin/sh       " /usr/bin/fish:/bin/bash:zsh?
+endif
 
 " let g:gruvbox_italic=1
 set termguicolors
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1   " required by tender
 colorscheme tender
 highlight SignColumn guibg=#282828
+" set guifont=FiraCode_Nerd_Font:h11
 " set background=dark
 
 " add current dir to runtimepath for use of UltiSnips
@@ -62,9 +66,10 @@ nnoremap <leader>s :mksession!<CR>
 nnoremap <leader>S :mksession!<CR>:qa<CR>
 nnoremap <space> za
 
-" I don't know what this does
+" if in :term, esc will go to :visual
 tnoremap <Esc> <C-\><C-n>
 
+" record the last place when exit :insert
 inoremap <esc> <esc>mm
 inoremap jj <esc>mm
 
@@ -98,7 +103,8 @@ au BufNewFile,BufRead *.ts setlocal ft=typescript
 au BufNewFile,BufRead *.dart setlocal ft=dart
 au BufNewFile,BufRead *.java,*.jav,*.aidl setlocal ft=java
 
-
+set concealcursor=
+set conceallevel=2
 " }}}
 
 " Language configuration {{{
@@ -217,10 +223,10 @@ map <silent>sr <Plug>(operator-surround-replace)
 
 " CamelCaseMotion {{{
 " call camelcasemotion#CreateMotionMappings('<leader>')
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-map <silent> e <Plug>CamelCaseMotion_e
-map <silent> ge <Plug>CamelCaseMotion_ge
+" map <silent> w <Plug>CamelCaseMotion_w
+" map <silent> b <Plug>CamelCaseMotion_b
+" map <silent> e <Plug>CamelCaseMotion_e
+" map <silent> ge <Plug>CamelCaseMotion_ge
 " sunmap w
 " sunmap b
 " sunmap e
@@ -238,8 +244,8 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " }}}
 
 " overcommandline {{{
-nnoremap <silent> :%s :OverCommandLine<CR>%s/
-xnoremap <silent> :%s :'<,'>OverCommandLine<CR>s/
+" nnoremap <silent> :%s :OverCommandLine<CR>%s/
+" xnoremap <silent> :%s :'<,'>OverCommandLine<CR>s/
 let g:over#command_line#substitute#replace_pattern_visually = 1
 let g:over#command_line#search#enable_incsearch = 1
 " }}}

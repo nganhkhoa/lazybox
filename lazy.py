@@ -18,14 +18,14 @@ from winreg import OpenKey, CloseKey
 from pprint import pprint
 
 IS_DEV = True
-DEV_IMAGE_TAG = 'luibo/lazybox:v0.3'
+DEV_IMAGE_TAG = 'luibo/lazybox:v0.4'
 IMAGE_TAG = 'luibo/lazybox'
 IMAGE_NOT_EXIST = 1
 IMAGE_EXIST = 2
 HOME = expanduser('~')
 DESKTOP = f'{HOME}\Desktop'
 CMD_FORMAT = 'docker exec -w \"{}\" -it {} bash -l -c \"{}\"'
-NOT_SHARE_DRIVES = 'EG'
+NOT_SHARE_DRIVES = 'EGF'
 
 CONTAINER_USERNAME = 'luibo'
 if CONTAINER_USERNAME == 'root':
@@ -40,7 +40,6 @@ LAZY_BIN = f'{LAZY}\\bin'
 try:
   client = docker.from_env()
 except BaseException:
-  print('No docker installed')
   print('Cannot connect to docker, has docker run?')
   exit()
 
@@ -63,7 +62,7 @@ if img_status == IMAGE_NOT_EXIST:
   print('[+] Pull the luibo/lazybox image')
   print(f'[+] Run a container that maps {HOME} and drives to {CONTAINER_WORKSPACE}/workspace and {CONTAINER_WORKSPACE}/drive/*')
   print('[+] Fix registry entry at HKEY_CLASSES_ROOT\Python.File\shell\open\command to python3 installation path')
-  print(f'[+] Put this script at {LAZ_BIN} and add to PATH')
+  print(f'[+] Put this script at {LAZY_BIN} and add to PATH')
 
   # TODO: Fix registry value
   # TODO: Put script at LAZY_BIN
@@ -71,7 +70,9 @@ if img_status == IMAGE_NOT_EXIST:
 
   print('To continue, press any key, or Ctrl-C to exit')
   input()
+  print(f'Pulling image {IMAGE_TAG}')
   client.images.pull(IMAGE_TAG)
+  print('Pull image completed')
 
 print('image:', img_tag)
 container_name = None
@@ -83,7 +84,7 @@ for container in client.containers.list():
 
 # find drives
 drives_list = win32api.GetLogicalDriveStrings().split('\\\x00')[:-1]
-drives_list = filter(lambda d: d[0] not in NOT_SHARE_DRIVES, drives_list)
+drives_list = list(filter(lambda d: d[0] not in NOT_SHARE_DRIVES, drives_list))
 drives = list(map(lambda d: {
   f'{d}//': {'bind': f'{CONTAINER_WORKSPACE}/drive/{d[0].lower()}', 'mode': 'rw'}
 }, drives_list))
@@ -102,7 +103,17 @@ if container_name is None:
       DESKTOP: {'bind': f'{CONTAINER_WORKSPACE}/desktop', 'mode': 'rw'},
       **drives
     },
-    'network': 'host',              # export all port, internal network will be mapped out
+    # 'network': 'host',              # export all port, internal network will be mapped out
+    # 'network_mode': 'host',
+    # 'publish_all_ports': True,
+    # docker no longer support IP for container, and recommend using port exposing
+    'ports': {
+      '8000/tcp': '8000',
+      '8080/tcp': '8080',
+      '3000/tcp': '3000',
+      '4444/tcp': '4444',
+      # '9000/tcp': '9000',
+    },
     'working_dir': f'{CONTAINER_WORKSPACE}',         # use as root
     'restart_policy': {             # auto start on startup
       'Name': 'always',

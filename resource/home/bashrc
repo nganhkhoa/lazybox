@@ -1,18 +1,14 @@
 alias ls=exa
 alias cat=bat
 
-function aur() {
-    su docker -c 'yay -S --needed --noprogressbar --needed --noconfirm '$@
-}
-
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 export GOPATH="$HOME/GOPATH"
 export NODE_PATH=`yarn global dir`/node_modules:$NODE_PATH
 
 export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.mix/escripts:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=`yarn global bin`:$PATH
-# export PATH=$HOME/tools/purescript:$PATH
 export PATH=$HOME/tools/exercism:$PATH
 export PATH=`gem environment gemdir`/bin:$PATH
